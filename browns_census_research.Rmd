@@ -7,6 +7,7 @@ Variables of interest
 
 -Population/Gender
 -Race/Ethnicity
+- BEN is beautifu
 -Age
 -Family Status (couples/kids)
 -Education (access; graduation rates; school lunch program activity; students experiencing homelessness report; early learning; post-grad)
