@@ -1,0 +1,56 @@
+---
+title: "Census and ACS data on Browns Addition"
+output: html_notebook
+---
+
+Variables of interest 
+
+-Population/Gender
+-Race/Ethnicity
+-Age
+-Family Status (couples/kids)
+-Education (access; graduation rates; school lunch program activity; students experiencing homelessness report; early learning; post-grad)
+-Employment/SES/Economy (access to jobs; unemployment levels; types of jobs; business/factories; income/poverty levels; underground economy)
+-Housing Status & Availability (homeowners vs. renters v. homeless)
+-Health (of individuals; access; physical and mental health facilities; service providers (formal and informal; health management)
+
+
+```{r}
+
+library(tidycensus)
+library(tidyverse)
+library(viridis)
+library(mapview)
+census_api_key("768764eb83f54797347a477143a2d37d893fe93e")
+
+spo <- get_acs(geography = "block group", 
+                variables = "B01003_001", 
+                state = "WA", 
+                county = "Spokane", 
+                geometry = TRUE)
+
+
+mapview(spo, zcol = "estimate")
+
+
+```
+
+
+```{r}
+
+spo %>% 
+  as_tibble() %>% 
+  filter(str_detect(NAME, "(Group 1)|(Group 3)"), 
+         str_detect(NAME, "Tract 36")) %>% 
+  summarise(population = sum(estimate), 
+            moe = moe_sum(moe, estimate = estimate))
+
+
+```
+
+
+
+TODO 
+
+add variables
+add citations
